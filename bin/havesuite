@@ -1,0 +1,48 @@
+#!/usr/bin/env node --harmony-async-await
+
+'use strict';
+
+process.title = 'havesuite';
+
+const argv = process.argv.slice(2);
+const fs = require('fs');
+const path = require('path');
+const Mocha = require('mocha');
+const selenium = require('selenium-standalone');
+
+selenium.start({}, function (error, seleniumProcess) {
+  if (error) throw error;
+  // Instantiate a Mocha instance.
+  const mocha = new Mocha({
+    ui: 'bdd',
+    reporter: 'list'
+  });
+
+  const testFile = path.resolve(process.cwd(), argv[0]); /** @todo: add globs */
+
+  mocha.addFile(path.resolve(__dirname, './globals.js'));
+  mocha.addFile(testFile);
+  mocha.addFile(path.resolve(__dirname, './cleanup.js'));
+
+  /*
+  // Add each .js file to the mocha instance
+  fs.readdirSync(testDir).filter(function(file){
+      // Only keep the .js files
+      return file.substr(-3) === '.js';
+
+  }).forEach(function(file){
+      mocha.addFile(
+          path.join(testDir, file)
+      );
+  });*/
+
+  // Run the tests.
+  mocha.run(function (failures) {
+    seleniumProcess.kill();
+    process.exit();
+    process.on('exit', function () {
+      seleniumProcess.kill();
+      process.exit(failures);  // exit with non-zero status if there were failures
+    });
+  });
+});

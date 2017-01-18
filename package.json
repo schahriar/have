@@ -1,0 +1,39 @@
+{
+  "name": "havesuite",
+  "version": "0.1.0",
+  "description": "UI Testing as smooth as butter",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "have": "./bin/havesuite"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/schahriar/have.git"
+  },
+  "keywords": [
+    "UI",
+    "testing",
+    "automation",
+    "framework",
+    "simple",
+    "have",
+    "behave"
+  ],
+  "author": "Schahriar SaffarShargh <info@schahriar.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/schahriar/have/issues"
+  },
+  "homepage": "https://github.com/schahriar/have#readme",
+  "dependencies": {
+    "chai": "^3.5.0",
+    "chai-as-promised": "^6.0.0",
+    "fibers": "^1.0.15",
+    "mocha": "^3.2.0",
+    "selenium-standalone": "^5.11.0",
+    "wd": "^1.1.1"
+  }
+}
