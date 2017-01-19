@@ -29,11 +29,12 @@
   },
   "homepage": "https://github.com/schahriar/have#readme",
   "dependencies": {
+    "async": "^2.1.4",
     "chai": "^3.5.0",
     "chai-as-promised": "^6.0.0",
-    "fibers": "^1.0.15",
     "mocha": "^3.2.0",
     "selenium-standalone": "^5.11.0",
+    "synchronize": "^2.0.0",
     "wd": "^1.1.1"
   }
 }

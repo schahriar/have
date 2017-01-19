@@ -1,7 +1,14 @@
 const wd = require('wd');
 const EventEmitter = require('events').EventEmitter;
-const Fiber = require('fibers');
-const Future = require('fibers/future');
+const sync = require('synchronize');
+const async = require('async');
+
+let supportedMethods = ['click', 'isDisplayed', 'text'];
+
+function syncElement(element) {
+  sync(element, ...supportedMethods);
+  return element;
+}
 
 class Browser extends EventEmitter {
   constructor(name) {
@@ -21,6 +28,18 @@ class Browser extends EventEmitter {
 
   get page() {
     const page = this._browser;
+    page.find = sync((selector, callback) => {
+      this._browser.elementsByCssSelector(selector, (error, elements) => {
+        if (error) return callback(error);
+        let processedElements = [];
+        
+        for (let el in elements) {
+          processedElements.push(syncElement(elements[el]));
+        }
+
+        callback(null, processedElements);
+      });
+    });
     return this._browser;
   }
 
