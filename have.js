@@ -2,8 +2,9 @@ const wd = require('wd');
 const EventEmitter = require('events').EventEmitter;
 const sync = require('synchronize');
 const async = require('async');
-const Element = require('./lib/Element');
 const List = require('./lib/List');
+const Element = require('./lib/Element');
+const Page = require('./lib/Page');
 
 class Browser extends EventEmitter {
   constructor(name) {
@@ -23,38 +24,18 @@ class Browser extends EventEmitter {
   }
 
   get page() {
-    const page = this._browser;
-    sync(page, 'title');
-    
-    page.waitForElementVisible = sync((selector, timeout, callback) => {
-      this._browser.waitForElementByCssSelector(selector, wd.asserters.isDisplayed, timeout || 10000, callback);
-    });
-    page.waitForElementHidden = sync((selector, timeout, callback) => {
-      this._browser.waitForElementByCssSelector(selector, wd.asserters.isNotDisplayed, timeout || 10000, callback);
-    });
-    page.waitForElementPresent = sync((selector, timeout, callback) => {
-      /** @todo: figure out DOM presence check */
-      //this._browser.waitForElementByCssSelector(selector, wd.asserters.isDisplayed, timeout || 10000, callback);
-    });
-    page.waitForElementAbsent = sync((selector, timeout, callback) => {
-      //this._browser.waitForElementByCssSelector(selector, wd.asserters.isNotDisplayed, timeout || 10000, callback);
-    });
-    page.find = sync((selector, callback) => {
-      this._browser.elementsByCssSelector(selector, (error, elements) => {
-        if (error) return callback(error);
-
-        let list = List.createFromWD(elements, selector);
-
-        callback(null, list);
-      });
-    });
-    return this._browser;
+    return this.currentLocalPage;
   }
 
-  loadPage(page, callback) {
+  set page(value) {
+    return null; // Disable page overrides
+  }
+
+  loadPage(pageObject, callback) {
+    const page = new Page(this._browser, pageObject);
     /** @todo: verify page object integrity */
     const url = (typeof page.url === 'function')?page.url():page.url;
-    this.localPage = page;
+    this.currentLocalPage = page;
     const urlPromise = this._browser.get(url);
     urlPromise.then(() => callback(), (error) => callback(error));
   }
