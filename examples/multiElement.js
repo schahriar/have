@@ -20,4 +20,7 @@ describe("MultiElement Test Suite", function () {
     browser.pause(1000);
     results.should.deep.equal(results.slice(0).sort((a,b) => b - a));
   }));
+  it("should concat text of List elements together", sync(function () {
+    browser.page.find('#list > .item').text().should.equal("Test 15Test 14Test 13Test 12Test 11Test 10Test 9Test 8Test 7Test 6Test 5Test 4Test 3Test 2Test 1");
+  }));
 });
