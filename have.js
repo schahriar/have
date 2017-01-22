@@ -2,17 +2,14 @@ const wd = require('wd');
 const EventEmitter = require('events').EventEmitter;
 const sync = require('synchronize');
 const async = require('async');
-
-let supportedMethods = ['click', 'isDisplayed', 'text'];
-
-function syncElement(element) {
-  sync(element, ...supportedMethods);
-  return element;
-}
+const Element = require('./lib/Element');
+const List = require('./lib/List');
 
 class Browser extends EventEmitter {
   constructor(name) {
     super();
+    sync(this, 'loadPage', 'pause');
+    
     this._browser = wd.promiseChainRemote();
     const browserPromise = this._browser.init({ browserName: this.name || 'chrome' });
 
@@ -23,42 +20,45 @@ class Browser extends EventEmitter {
 
     this.name = name || 'chrome';
     this.ready = false;
-
   }
 
   get page() {
     const page = this._browser;
+    page.waitForElementVisible = sync((selector, timeout, callback) => {
+      this._browser.waitForElementByCssSelector(selector, wd.asserters.isDisplayed, timeout || 10000, callback);
+    });
+    page.waitForElementHidden = sync((selector, timeout, callback) => {
+      this._browser.waitForElementByCssSelector(selector, wd.asserters.isNotDisplayed, timeout || 10000, callback);
+    });
+    page.waitForElementPresent = sync((selector, timeout, callback) => {
+      /** @todo: figure out DOM presence check */
+      //this._browser.waitForElementByCssSelector(selector, wd.asserters.isDisplayed, timeout || 10000, callback);
+    });
+    page.waitForElementAbsent = sync((selector, timeout, callback) => {
+      //this._browser.waitForElementByCssSelector(selector, wd.asserters.isNotDisplayed, timeout || 10000, callback);
+    });
     page.find = sync((selector, callback) => {
       this._browser.elementsByCssSelector(selector, (error, elements) => {
         if (error) return callback(error);
-        let processedElements = [];
-        
-        for (let el in elements) {
-          processedElements.push(syncElement(elements[el]));
-        }
 
-        callback(null, processedElements);
+        let list = List.createFromWD(elements, selector);
+
+        callback(null, list);
       });
     });
     return this._browser;
   }
 
-  loadPage(page) {
-    return new Promise((resolve, reject) => {
-      const pageLoader = () => {
-        if (page.isUninitializedPage) page = new page();
-        this.localPage = page;
-        const urlPromise = this._browser.get(page.url);
-        urlPromise.then(resolve, reject);
-      };
+  loadPage(page, callback) {
+    /** @todo: verify page object integrity */
+    const url = (typeof page.url === 'function')?page.url():page.url;
+    this.localPage = page;
+    const urlPromise = this._browser.get(url);
+    urlPromise.then(() => callback(), (error) => callback(error));
+  }
 
-      // Load guard
-      if (!this.ready) {
-        this.on('ready', () => pageLoader());
-      } else {
-        pageLoader();
-      }
-    });
+  pause(timeout, callback) {
+    setTimeout(callback, timeout);
   }
 
   getWebDriver() {
