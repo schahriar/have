@@ -24,6 +24,8 @@ class Browser extends EventEmitter {
 
   get page() {
     const page = this._browser;
+    sync(page, 'title');
+    
     page.waitForElementVisible = sync((selector, timeout, callback) => {
       this._browser.waitForElementByCssSelector(selector, wd.asserters.isDisplayed, timeout || 10000, callback);
     });
