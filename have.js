@@ -40,8 +40,8 @@ class Browser extends EventEmitter {
     urlPromise.then(() => callback(), (error) => callback(error));
   }
 
-  pause(timeout, callback) {
-    setTimeout(callback, timeout);
+  pause(...args) {
+    this.page.pause(...args);
   }
 
   getWebDriver() {

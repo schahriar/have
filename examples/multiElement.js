@@ -6,6 +6,10 @@ describe("MultiElement Test Suite", function () {
     browser.loadPage(multiElement);
     browser.page.waitForElementVisible('#list');
   }));
+  it("should pause on both browser and page", sync(function () {
+    browser.pause(250);
+    browser.page.pause(250);
+  }));
   it("should check default order of items in the list", sync(function () {
     let results = [];
     results = browser.page.find('#list > .item').map((el) => parseInt(el.text().substring(5))); // Remove "Test " from text and return integer array
@@ -14,10 +18,8 @@ describe("MultiElement Test Suite", function () {
   it("should modify the order of items in the list", sync(function () {
     let results = [];
     // Click on reorder
-    browser.pause(1000);
     browser.page.find('#reorder').click();
     results = browser.page.find('#list > .item').map((el) => parseInt(el.text().substring(5))); // Remove "Test " from text and return integer array
-    browser.pause(1000);
     results.should.deep.equal(results.slice(0).sort((a,b) => b - a));
   }));
   it("should concat text of List elements together", sync(function () {
