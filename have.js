@@ -66,17 +66,6 @@ class Browser extends EventEmitter {
   }
 }
 
-class Page {
-  get url() {
-    return "http://example.com";
-  }
-
-  static get isUninitializedPage() {
-    return true;
-  }
-}
-
 module.exports = {
-  Browser: Browser,
-  Page: Page
+  Browser: Browser
 }
