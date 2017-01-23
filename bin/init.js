@@ -1,15 +1,8 @@
 const have = require('../have');
 const sync = require('synchronize');
 
-/** @todo: add client support using argv */
-global.client = new have.Client();
+global.client = new have.Client(global.havesuite.options);
 global.chai = require("chai");
-
-/** @todo: re-add if promises are shipped by default */
-// global.chaiAsPromised = require("chai-as-promised");
-// enables chai assertion chaining
-//chaiAsPromised.transferPromiseness = client.getWebDriver().transferPromiseness;
-// chai.use(chaiAsPromised);
 
 chai.should();
 

@@ -7,19 +7,19 @@ const Element = require('./lib/Element');
 const Page = require('./lib/Page');
 
 class Client extends EventEmitter {
-  constructor(name) {
+  constructor(options) {
     super();
     sync(this, 'loadPage', 'pause');
     
     this._client = wd.promiseChainRemote();
-    const clientPromise = this._client.init({ browserName: this.name || 'chrome' });
+    const clientPromise = this._client.init(options.capabilities || { browserName: 'chrome' });
 
     clientPromise.then(() => {
       this.emit('ready');
       this.ready = true;
     }, (error) => this.emit('error', error));
 
-    this.name = name || 'chrome';
+    this.name = options.name;
     this.ready = false;
   }
 

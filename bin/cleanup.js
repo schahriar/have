@@ -1,5 +1,5 @@
-describe("HAVE -> Cleanup suite", function () {
-  it("should close session", function () {
-    return client.page.quit();
-  });
+describe("HAVESUITE CLEANUP TASK", function () {
+  it("should close session", sync(function () {
+    client.page.quit();
+  }));
 });

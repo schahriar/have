@@ -1,4 +1,4 @@
-const multiElement = require('./multiElementPage');
+const multiElement = require('./page/multiElementPage');
 
 describe("MultiElement Test Suite", function () {
   this.timeout(10000);

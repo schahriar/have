@@ -1,4 +1,4 @@
-const basicPage = require('./basicPage');
+const basicPage = require('./page/basicPage');
 
 describe("Basic Test Suite", function () {
   this.timeout(10000);

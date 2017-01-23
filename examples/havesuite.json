@@ -1,0 +1,10 @@
+{
+  "name": "Example Tests",
+  "path": [
+    "./*/*.js"
+  ],
+  "capabilities": {
+    "browserName": "chrome",
+    "platform": "MAC"
+  }
+}
