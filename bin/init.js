@@ -18,7 +18,18 @@ global.sync = (func) => {
 
 /** @todo: Add TDD & QUnit options for Initial and final test */
 // Initial test
-it("should start test suite", function (done) {
+// options.interface
+const HAVESUITE_INIT_FUNCTION = function (done) {
   this.timeout(30000);
   global.client.on('ready', done);
-});
+};
+
+console.log(global.havesuite.options.interface, "<<")
+
+switch (global.havesuite.options.interface) {
+  case 'tdd':
+    test("should start test suite", HAVESUITE_INIT_FUNCTION);
+  break;
+  default:
+    it("should start test suite", HAVESUITE_INIT_FUNCTION);
+}

@@ -10,5 +10,6 @@
     "client_key": "${TBOT_KEY}",
     "client_secret": "${TBOT_PRIVATE}"
   },
+  "interface": "BDD",
   "remote": "http://${TBOT_KEY}:${TBOT_PRIVATE}@hub.testingbot.com/wd/hub"
 }

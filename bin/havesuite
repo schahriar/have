@@ -33,6 +33,8 @@ function HAVESUITE_START() {
 
   // Remove remote option if set in arguments
   if (argv.remote === false) delete options.remote;
+  if (!options.interface) options.interface = 'bdd';
+  else options.interface = options.interface.toLowerCase();
 
   selenium.start({}, function (error, seleniumProcess) {
     if (error) {
@@ -46,9 +48,10 @@ function HAVESUITE_START() {
       })
       return;
     }
+
     // Instantiate a Mocha instance.
     const mocha = new Mocha({
-      ui: 'bdd',
+      ui: options.interface.toLowerCase(),
       reporter: 'list'
     });
 
