@@ -55,10 +55,10 @@ function HAVESUITE_START() {
     global.havesuite = { options };
 
     let globPath = "";
-    if (!Array.isArray(options.path)) {
-      globPath = path.join(cwd, options.path);
+    if (!Array.isArray(options.src)) {
+      globPath = path.join(cwd, options.src);
     } else {
-      globPath = options.path.map((p) => `${path.join(cwd, p)}`).join('|');
+      globPath = options.src.map((p) => `${path.join(cwd, p)}`).join('|');
     }
 
     // Load test files

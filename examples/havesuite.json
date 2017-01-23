@@ -1,6 +1,6 @@
 {
   "name": "Example Tests",
-  "path": [
+  "src": [
     "./*/*.js"
   ],
   "capabilities": {
