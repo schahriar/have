@@ -6,15 +6,15 @@ const List = require('./lib/List');
 const Element = require('./lib/Element');
 const Page = require('./lib/Page');
 
-class Browser extends EventEmitter {
+class Client extends EventEmitter {
   constructor(name) {
     super();
     sync(this, 'loadPage', 'pause');
     
-    this._browser = wd.promiseChainRemote();
-    const browserPromise = this._browser.init({ browserName: this.name || 'chrome' });
+    this._client = wd.promiseChainRemote();
+    const clientPromise = this._client.init({ browserName: this.name || 'chrome' });
 
-    browserPromise.then(() => {
+    clientPromise.then(() => {
       this.emit('ready');
       this.ready = true;
     }, (error) => this.emit('error', error));
@@ -32,11 +32,11 @@ class Browser extends EventEmitter {
   }
 
   loadPage(pageObject, callback) {
-    const page = new Page(this._browser, pageObject);
+    const page = new Page(this._client, pageObject);
     /** @todo: verify page object integrity */
     const url = (typeof page.url === 'function')?page.url():page.url;
     this.currentLocalPage = page;
-    const urlPromise = this._browser.get(url);
+    const urlPromise = this._client.get(url);
     urlPromise.then(() => callback(), (error) => callback(error));
   }
 
@@ -50,5 +50,5 @@ class Browser extends EventEmitter {
 }
 
 module.exports = {
-  Browser: Browser
+  Client: Client
 }

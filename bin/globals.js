@@ -1,14 +1,14 @@
 const have = require('../have');
 const sync = require('synchronize');
 
-/** @todo: add browser support using argv */
-global.browser = new have.Browser();
+/** @todo: add client support using argv */
+global.client = new have.Client();
 global.chai = require("chai");
 
 /** @todo: re-add if promises are shipped by default */
 // global.chaiAsPromised = require("chai-as-promised");
 // enables chai assertion chaining
-//chaiAsPromised.transferPromiseness = browser.getWebDriver().transferPromiseness;
+//chaiAsPromised.transferPromiseness = client.getWebDriver().transferPromiseness;
 // chai.use(chaiAsPromised);
 
 chai.should();
@@ -27,5 +27,5 @@ global.sync = (func) => {
 // Initial test
 it("should start test suite", function (done) {
   this.timeout(10000);
-  global.browser.on('ready', done);
+  global.client.on('ready', done);
 });
