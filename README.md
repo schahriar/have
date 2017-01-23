@@ -59,6 +59,8 @@ note that you can use the es6 template pattern `${some_key}` to access **environ
     "platform": "MAC",
     "version": "latest"
   },
+  "reporter": "list",
+  "interface": "bdd",
   "remote": "http://${MY_KEY}:${MY_PRIVATE}@hub.example.com/wd/hub"
 }
 ```
