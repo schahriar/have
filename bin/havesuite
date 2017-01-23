@@ -4,7 +4,7 @@
 
 process.title = 'havesuite';
 
-const argv = process.argv.slice(2);
+const argv = require('yargs').argv;
 const fs = require('fs');
 const path = require('path');
 const Mocha = require('mocha');
@@ -18,7 +18,7 @@ function interpolateJSON(str, data) {
   });
 }
 
-const cwd = path.resolve(process.cwd(), argv[0]);
+const cwd = path.resolve(process.cwd(), argv._[0]);
 let options = {}; // Populated from havesuite.json
 
 function HAVESUITE_START() {
@@ -30,6 +30,9 @@ function HAVESUITE_START() {
     console.error("Failed to parse havesuite.json\nPlease verify file integrity");
     throw error;
   }
+
+  // Remove remote option if set in arguments
+  if (argv.remote === false) delete options.remote;
 
   selenium.start({}, function (error, seleniumProcess) {
     if (error) {
