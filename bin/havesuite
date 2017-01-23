@@ -52,7 +52,7 @@ function HAVESUITE_START() {
     // Instantiate a Mocha instance.
     const mocha = new Mocha({
       ui: options.interface.toLowerCase(),
-      reporter: 'list'
+      reporter: options.reporter || 'list'
     });
 
     global.havesuite = { options };

@@ -11,5 +11,6 @@
     "client_secret": "${TBOT_PRIVATE}"
   },
   "interface": "TDD",
+  "reporter": "landing",
   "remote": "http://${TBOT_KEY}:${TBOT_PRIVATE}@hub.testingbot.com/wd/hub"
 }

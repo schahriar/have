@@ -24,8 +24,6 @@ const HAVESUITE_INIT_FUNCTION = function (done) {
   global.client.on('ready', done);
 };
 
-console.log(global.havesuite.options.interface, "<<")
-
 switch (global.havesuite.options.interface) {
   case 'tdd':
     test("should start test suite", HAVESUITE_INIT_FUNCTION);
