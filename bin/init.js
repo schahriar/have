@@ -1,7 +1,7 @@
-const have = require('../have');
+const suite = require('../havesuite');
 const sync = require('synchronize');
 
-global.client = new have.Client(global.havesuite.options);
+global.client = new suite.Client(global.havesuite.options);
 global.chai = require("chai");
 
 chai.should();

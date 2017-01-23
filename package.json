@@ -19,15 +19,16 @@
     "automation",
     "framework",
     "simple",
+    "havesuite",
     "have",
     "behave"
   ],
   "author": "Schahriar SaffarShargh <info@schahriar.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/schahriar/have/issues"
+    "url": "https://github.com/schahriar/havesuite/issues"
   },
-  "homepage": "https://github.com/schahriar/have#readme",
+  "homepage": "https://github.com/schahriar/havesuite#readme",
   "dependencies": {
     "async": "^2.1.4",
     "chai": "^3.5.0",
