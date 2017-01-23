@@ -108,6 +108,9 @@ describe("Example Test Suite", function () {
     client.page.find('#lst-ib').type('behave');
     client.page.find('#lst-ib')[0].getValue().should.equal('behave');
   }));
-  
+
 });
 ```
+
+## API
+extends WD.js [https://github.com/admc/wd/blob/master/doc/api.md](https://github.com/admc/wd/blob/master/doc/api.md)
