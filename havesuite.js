@@ -11,7 +11,7 @@ class Client extends EventEmitter {
     super();
     sync(this, 'loadPage', 'pause');
     
-    this._client = wd.promiseChainRemote();
+    this._client = wd.promiseChainRemote(options.remote);
     const clientPromise = this._client.init(options.capabilities || { browserName: 'chrome' });
 
     clientPromise.then(() => {

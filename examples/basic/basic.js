@@ -1,7 +1,7 @@
 const basicPage = require('./page/basicPage');
 
 describe("Basic Test Suite", function () {
-  this.timeout(10000);
+  this.timeout(30000);
   before(sync(function () {
     client.loadPage(basicPage);
   }));
@@ -9,8 +9,7 @@ describe("Basic Test Suite", function () {
     client.page.title().should.include("Google");
   }));
   it("should log all link texts from page", sync(function () {
-    let elements = client.page.find('a');
-    let texts = client.page.find('a').map((el) => el.text());
+    let texts = client.page.find('._Gs').map((el) => el.text());
     texts.should.include('Privacy');
     texts.should.not.include('someUnknownElementToHaveSuite');
   }));

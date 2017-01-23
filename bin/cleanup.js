@@ -1,5 +1,5 @@
 describe("HAVESUITE CLEANUP TASK", function () {
-  it("should close session", sync(function () {
+  it("should close session", function () {
     client.page.quit();
-  }));
+  });
 });

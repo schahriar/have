@@ -19,6 +19,6 @@ global.sync = (func) => {
 /** @todo: Add TDD & QUnit options for Initial and final test */
 // Initial test
 it("should start test suite", function (done) {
-  this.timeout(10000);
+  this.timeout(30000);
   global.client.on('ready', done);
 });

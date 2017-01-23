@@ -5,6 +5,10 @@
   ],
   "capabilities": {
     "browserName": "chrome",
-    "platform": "MAC"
-  }
+    "platform": "MAC",
+    "version": "latest",
+    "client_key": "${TBOT_KEY}",
+    "client_secret": "${TBOT_PRIVATE}"
+  },
+  "remote": "http://${TBOT_KEY}:${TBOT_PRIVATE}@hub.testingbot.com/wd/hub"
 }

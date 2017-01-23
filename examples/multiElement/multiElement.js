@@ -1,7 +1,7 @@
 const multiElement = require('./page/multiElementPage');
 
 describe("MultiElement Test Suite", function () {
-  this.timeout(10000);
+  this.timeout(30000);
   before(sync(function () {
     client.loadPage(multiElement);
     client.page.waitForElementVisible('#list');
